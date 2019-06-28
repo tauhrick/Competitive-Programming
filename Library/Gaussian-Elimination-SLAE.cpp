@@ -5,7 +5,7 @@ int gauss(vector < vector < double > > a, vector < double > &ans) {
 	*/
 	int rows = a.size();
 	int cols = a[0].size() - 1;
-	vector < int > where(cols, -1);
+	vector<int> where(cols, -1);
 	for (int r = 0, c = 0; r < rows && c < cols; ++c) {
 		int tar = r;
 		for (int i = r; i < rows; ++i) {

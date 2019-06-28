@@ -1,11 +1,11 @@
 struct Matrix {
-	vector < vector < int > > arr;
+	vector<vector<int>> arr;
 	int rows, cols;
 
 	Matrix(int n, int m) {
 		rows = n;
 		cols = m;
-		arr.assign(n, vector < int >(m));
+		arr.assign(n, vector<int>(m));
 	}
 
 	void makeIdentical() {
@@ -29,7 +29,7 @@ struct Matrix {
 	}
 
 	inline int mul(int a, int b) {
-		ll c = 1ll * a * b;
+		long long c = 1LL * a * b;
 		if (c >= MOD) {
 			c %= MOD;
 		}
@@ -60,7 +60,7 @@ struct Matrix {
 		return res;
 	}
 
-	Matrix power(ll p) {
+	Matrix power(long long p) {
 		assert(rows == cols);
 		Matrix o = (*this);
 		Matrix res(rows, cols);

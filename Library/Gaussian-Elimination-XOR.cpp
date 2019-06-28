@@ -1,6 +1,6 @@
 struct Gauss {
 	static const int bits = 32;
-	vector < int > table;
+	vector<int> table;
 
 	Gauss() {
 		table.assign(bits, 0);

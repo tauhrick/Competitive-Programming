@@ -1,6 +1,6 @@
 int timer, l;
-vector < int > tin, tout;
-vector < vector < int > > up;
+vector<int> tin, tout;
+vector<vector<int>> up;
 
 void dfs(int v, int p) {
     tin[v] = ++timer;
@@ -16,25 +16,25 @@ void dfs(int v, int p) {
     tout[v] = ++timer;
 }
 
-bool isAncestor(int u, int v) {
+bool is_ancestor(int u, int v) {
     return tin[u] <= tin[v] && tout[u] >= tout[v];
 }
 
 int lca(int u, int v) {
-    if (isAncestor(u, v)) {
+    if (is_ancestor(u, v)) {
         return u;
-    } else if (isAncestor(v, u)) {
+    } else if (is_ancestor(v, u)) {
         return v;
     }
     for (int i = l; i >= 0; --i) {
-        if (!isAncestor(up[u][i], v)) {
+        if (!is_ancestor(up[u][i], v)) {
             u = up[u][i];
         }
     }
     return up[u][0];
 }
 
-void preProcess(int root) {
+void pre_lca(int root) {
     tin.resize(n);
     tout.resize(n);
     timer = 0;

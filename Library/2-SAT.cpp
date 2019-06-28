@@ -8,10 +8,10 @@ inline int neg(int &x) {
 
 struct TwoSat {
 	int n;
-	vector < vector < int > > g, gR;
-	vector < bool > seen, assignment;
-	vector < int > comp;
-	stack < int > stk;
+	vector<vector<int>> g, gR;
+	vector<bool> seen, assignment;
+	vector<int> comp;
+	stack<int> stk;
 
 	// sz denotes the number of boolean variables in 2-SAT problem
 	TwoSat(int sz) { 
@@ -27,7 +27,7 @@ struct TwoSat {
 	// Call this to add edge (0 - based)
 	// If (ind & 1) -> node represented is -(ind / 2)
 	// Else -> node represented is (ind / 2)
-	void addEdge(int u, int v) {
+	void add_edge(int u, int v) {
 		g[u].emplace_back(v);
 		gR[v].emplace_back(u);
 	}
@@ -53,7 +53,7 @@ struct TwoSat {
 
 	// Returns true if solution of 2-SAT exists
 	// After this is called, assignment[i] contains value (0 / 1) assigned to boolean variable i
-	bool solve2Sat() {
+	bool solve_2_sat() {
 		for (int i = 0; i < n; ++i) {
 			if (!seen[i]) {
 				dfs1(i);
