@@ -43,41 +43,39 @@ void debug_out(Head H, Tail... T) {
 #define debug(...) 42
 #endif
 
-const int N = 5e5 + 10;
-
-vector<int> pos[N];
-
 void test_case() {
-	int n, c;
-	cin >> n >> c;
-	vector<int> a(n + 1);
-	for (int i = 1; i <= n; ++i) {
-		cin >> a[i];
-		pos[a[i]].push_back(i);
-	}
-	auto get_cnt = [](int l, int r, int x) {
-		if (l > r) {
-			return 0;
+	int n, m, k;
+	cin >> n >> m >> k;
+	int r = 1, c = 1;
+	auto nxt = [&]() {
+		if (r & 1) {
+			++c;
+		} else {
+			--c;
 		}
-		int hi = (upper_bound(pos[x].begin(), pos[x].end(), r) - pos[x].begin()) - 1;
-		int lo = lower_bound(pos[x].begin(), pos[x].end(), l) - pos[x].begin();
-		return hi - lo + 1;
+		if (c == m + 1) {
+			++r, c = m;
+		}
+		if (c == 0) {
+			++r, c = 1;
+		}
 	};
-	int res = 0, prv = 0;
-	for (int i = 1; i <= n; ++i) {
-		int lo = i, hi = n, mid;
-		while (lo < hi) {
-			mid = lo + (hi - lo + 1 >> 1);
-			if (get_cnt(i, mid, a[i]) - get_cnt(i, mid, c) >= 0) {
-				lo = mid;
-			} else {
-				hi = mid - 1;
-			}
-		}
-		res = max(res, prv + get_cnt(i, lo, a[i]) + get_cnt(lo + 1, n, c));
-		prv += a[i] == c;
+	for (int i = 0; i < k - 1; ++i) {
+		cout << 2 << " " << r << " " << c << " ";
+		nxt();
+		cout << r << " " << c << "\n";
+		nxt();
 	}
-	cout << res << "\n";
+	vector<pair<int, int>> rem;
+	while (r <= n && c <= m) {
+		rem.push_back({r, c});
+		nxt();
+	}
+	cout << rem.size() << "\n";
+	for (auto [i, j] : rem) {
+		cout << i << " " << j << " ";
+	}
+	cout << "\n";
 }
 
 int main() {
