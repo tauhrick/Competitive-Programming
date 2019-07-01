@@ -64,7 +64,7 @@ public:
 	template <typename M>
 	void modify(int tv, int tl, int tr, int ql, int qr, const M& v) {
 		if (qr < tl || tr < ql) {
-			return o;
+			return;
 		} else if (ql <= tl && tr <= qr) {
 			Tree[tv].apply(v);
 		} else {
@@ -78,7 +78,7 @@ public:
 
 	Node get(int tv, int tl, int tr, int ql, int qr) {
 		if (qr < tl || tr < ql) {
-			return;
+			return o;
 		} else if (ql <= tl && tr <= qr) {
 			return Tree[tv];
 		} else {
