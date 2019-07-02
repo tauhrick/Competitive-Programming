@@ -53,7 +53,7 @@ public:
 
 	Modular operator /(const Modular& o) const {
 		return Modular(*this) /= o;
-	};
+	}
 
 	Modular pow(uint64_t b) const {
 		Modular ans(1), m = Modular(*this);
