@@ -1,3 +1,8 @@
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+
+using namespace __gnu_pbds;
+
 struct custom_hash {
 	static uint64_t splitmix64(uint64_t x) {
 		// http://xorshift.di.unimi.it/splitmix64.c
@@ -13,4 +18,5 @@ struct custom_hash {
 	}
 };
 
-template<typename T> using HashTable = gp_hash_table<long long, T, custom_hash>;
+template <typename T>
+using HashTable = gp_hash_table<long long, T, custom_hash>;
