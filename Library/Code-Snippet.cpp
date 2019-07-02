@@ -5,6 +5,10 @@ string to_string(string s) {
 	return '"' + s + '"';
 }
 
+string to_string(const char* s) {
+	return to_string((string) s);
+}
+
 string to_string(bool b) {
 	return (b ? "true" : "false");
 }
