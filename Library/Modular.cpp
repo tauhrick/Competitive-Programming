@@ -68,9 +68,9 @@ public:
   }
 
   Modular inv() const {
-    uint32_t a = n, b = mod, u = 0, v = 1;
+    int32_t a = n, b = mod, u = 0, v = 1;
     while (a) {
-      uint32_t t = b / a;
+      int32_t t = b / a;
       b -= t * a;
       swap(a, b);
       u -= t * v;
