@@ -122,16 +122,16 @@ public:
     }
   }
   
-  int find_last_knowingly(int tv, int tl, int tr, const functin<bool(const Node&)>& f) {
+  int find_last_knowingly(int tv, int tl, int tr, const function<bool(const Node&)>& f) {
     if (tl == tr) {
       return tl;
     } else {
       int tm = tl + tr >> 1, lc = 2 * tv, rc = lc + 1;
       push(tm, lc, rc);
       if (f(Tree[rc])) {
-        return find_last_knowingly(rc, tm + 1, tr);
+        return find_last_knowingly(rc, tm + 1, tr, f);
       } else {
-        return find_last_knowingly(lc, tl, tm);
+        return find_last_knowingly(lc, tl, tm, f);
       }
     }
   }
