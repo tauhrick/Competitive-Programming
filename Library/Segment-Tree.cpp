@@ -18,7 +18,7 @@ public:
     Tree[tv] = unite(Tree[lc], Tree[rc]);
   }
 
-  void push(int tv, int lc, int tr) {
+  void push(int tv, int lc, int rc) {
     //
   }
 
