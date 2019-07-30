@@ -1,4 +1,4 @@
-const int N = 1e5 + 10, LG = log2(N) + 2;
+const int N = 1e5 + 10;
 
 struct Chain {
   int head, sz;
@@ -20,7 +20,6 @@ int curr_chain, ctr;
 vector<Chain> chain_info(N);
 vector<Node> node_info(N);
 vector<int> order;
-vector<vector<int>> up(N, vector<int>(LG));
 
 void pre_sz(int u, int p, int d) {
   node_info[u].sub_sz = 1;
@@ -50,8 +49,8 @@ void decompose(int u, int p) {
   int max_sz = -1, special_node = -1;
   for (auto v : G[u]) {
     if (v != p) {
-      if (node_info[v].sz > max_sz) {
-        max_sz = node_info[v].sz;
+      if (node_info[v].sub_sz > max_sz) {
+        max_sz = node_info[v].sub_sz;
         special_node = v;
       }
     }
@@ -74,12 +73,4 @@ void hld(int root) {
   pre_sz(root, 0, 0);
   decompose(root, 0);
   assert(ctr == n);
-  for (int i = 1; i <= n; ++i) {
-    up[i][0] = node_info[i].par;
-  }
-  for (int k = 1; k < LG; ++k) {
-    for (int i = 1; i <= n; ++i) {
-      up[i][k] = up[up[i][k - 1]][k - 1];
-    }
-  }
 }
