@@ -5,7 +5,7 @@ public:
   int n;
 
   Fenwick(int _n) : n(_n) {
-    Fenw.rezize(n);
+    Fenw.resize(n);
   }
 
   void modify(int x, T v) {
