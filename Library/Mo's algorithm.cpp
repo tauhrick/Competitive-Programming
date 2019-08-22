@@ -9,9 +9,20 @@ struct Query {
   }
 };
 
+void add(int pos) {
+  
+}
+
+void remove(int pos) {
+  
+}
+
+int solve_query(Query& q) {
+  
+}
 
 void mo_s_algo(vector<Query>& queries) {
-  sort(all(queries));
+  sort(queries.begin(), queries.end());
   int curr_l = -1, curr_r = -1;
   for (auto& q: queries) {
     while (curr_l > q.l) {
@@ -28,16 +39,4 @@ void mo_s_algo(vector<Query>& queries) {
     }
     query_ans[q.idx] = solve_query(q);
   }
-}
-
-void add(int pos) {
-  
-}
-
-void remove(int pos) {
-  
-}
-
-int solve_query(Query& q) {
-  
 }
