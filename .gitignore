@@ -8,6 +8,6 @@
 !*/
 
 # Ignore selected dirs
-codes/
-TC/
-Hightail/
+codes/*
+TC/*
+Hightail/*
