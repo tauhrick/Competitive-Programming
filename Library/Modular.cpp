@@ -10,48 +10,48 @@ public:
         return n;
     }
 
-    bool operator ==(const Modular& o) const {
+    bool operator==(const Modular &o) const {
         return n == o.n;
     }
 
-    bool operator !=(const Modular& o) const {
+    bool operator!=(const Modular &o) const {
         return n != o.n;
     }
 
-    Modular& operator +=(const Modular& o) {
+    Modular& operator+=(const Modular &o) {
         n += o.n;
         n = (n < mod ? n : n - mod);
         return *this; 
     }
 
-    Modular& operator -=(const Modular& o) {
+    Modular& operator-=(const Modular &o) {
         n += mod - o.n;
         n = (n < mod ? n : n - mod);
         return *this;
     }
 
-    Modular& operator *=(const Modular& o) {
+    Modular& operator*=(const Modular &o) {
         n = uint64_t(n) * o.n % mod;
         return *this;
     }
 
-    Modular& operator /=(const Modular& o) {
+    Modular& operator/=(const Modular &o) {
         return (*this) *= o.inv();
     }
 
-    Modular operator +(const Modular& o) const {
+    Modular operator+(const Modular &o) const {
         return Modular(*this) += o;
     }
 
-    Modular operator -(const Modular& o) const {
+    Modular operator-(const Modular &o) const {
         return Modular(*this) -= o;
     }
 
-    Modular operator *(const Modular& o) const {
+    Modular operator*(const Modular &o) const {
         return Modular(*this) *= o;
     }
 
-    Modular operator /(const Modular& o) const {
+    Modular operator/(const Modular &o) const {
         return Modular(*this) /= o;
     }
 
@@ -78,5 +78,9 @@ public:
         }
         assert(b == 1);
         return Modular(u);
+    }
+
+    friend string to_string(const Modular &m) const {
+        return to_string(m.get());
     }
 };

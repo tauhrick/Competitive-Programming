@@ -1,5 +1,6 @@
-#include <bits/stdc++.h>
-using namespace std;
+string to_string(char ch) {
+    return "'" + string(1, ch) + "'";
+}
 
 string to_string(string s) {
     return '"' + s + '"';
@@ -16,6 +17,35 @@ string to_string(bool b) {
 template <typename A, typename B>
 string to_string(pair<A, B> p) {
     return "(" + to_string(p.first) + ", " + to_string(p.second) + ")";
+}
+
+template <typename A, typename B, typename C>
+string to_string(tuple<A, B, C> p) {
+    return "(" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", " + to_string(get<2>(p)) + ")";
+}
+
+template <typename A, typename B, typename C, typename D>
+string to_string(tuple<A, B, C, D> p) {
+    return "(" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", " + to_string(get<2>(p)) + ", " + to_string(get<3>(p)) + ")";
+}
+
+template <size_t N>
+string to_string(bitset<N> v) {
+    return v.to_string();
+}
+
+string to_string(vector<bool> v) {
+    bool first = true;
+    string res = "{";
+    for (int i = 0; i < v.size(); ++i) {
+        if (!first) {
+            res += ", ";
+        }
+        first = false;
+        res += to_string(v[i]);
+    }
+    res += "}";
+    return res;
 }
 
 template <typename A>
@@ -46,15 +76,3 @@ void debug_out(Head H, Tail... T) {
 #else
 #define debug(...) 42
 #endif
-
-void test_case() {
-
-}
-
-int main() {
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
-    test_case();
-    return 0;
-}
