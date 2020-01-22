@@ -80,7 +80,7 @@ public:
         return Modular(u);
     }
 
-    friend string to_string(const Modular &m) const {
+    friend string to_string(const Modular &m) {
         return to_string(m.get());
     }
 };
