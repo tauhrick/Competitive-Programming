@@ -13,35 +13,65 @@ struct rect {
     }
 };
 
-vector<pair<int, long long>> hull;
-int ptr;
+struct Line {
+    long long m, c;
+    mutable function<const Line*()> succ;
 
-bool bad(int i1, int i2, int i3) {
-    auto get = [&](int x, int y) {
-        return (hull[x].second - hull[i1].second) * (hull[i1].first - hull[y].first);
-    };
-    return get(i3, i2) <= get(i2, i3);
-}
+    bool operator<(const Line &other) const {
+        return m > other.m; // > (min)
+    }
 
-void add_line(int m, long long c) {
-    hull.emplace_back(m, c);
-    while (hull.size() >= 3 && bad(hull.size() - 3, hull.size() - 2, hull.size() - 1)) {
-        hull.erase(hull.end() - 2);
+    bool operator<(const long long &x) const {
+        auto *nxt = succ();
+        if (!nxt) {
+            return 0;
+        } else {
+            return m * x + c > nxt->m * x + nxt->c; // > (min)
+        }
     }
-}
+};
 
-long long get_min(int x) {
-    auto eval = [&](int ind) {
-        return 1LL * hull[ind].first * x + hull[ind].second;
-    };
-    if (ptr >= hull.size()) {
-        ptr = hull.size() - 1;
+struct CHT : public multiset<Line, less<>> {
+    bool bad(iterator i2) {
+        auto i3 = next(i2);
+        if (i2 == begin()) {
+            if (i3 == end()) {
+                return 0;
+            } else {
+                return i2->m == i3->m && i2->c >= i3->c; // >= (min)
+            }
+        } else {
+            auto i1 = prev(i2);
+            if (i3 == end()) {
+                return i2->m == i1->m && i2->c >= i1->c; // >= (min)
+            } else {
+                return (i3->c - i1->c) * (i1->m - i2->m) <= (i2->c - i1->c) * (i1->m - i3->m); // 
+            }
+        }
     }
-    while (ptr + 1 < hull.size() && eval(ptr + 1) < eval(ptr)) {
-        ++ptr;
+
+    void add(long long m, long long c) {
+        auto it = insert({m, c});
+        it->succ = [=] {
+            return next(it) == end() ? nullptr : &*next(it);
+        };
+        if (bad(it)) {
+            erase(it);
+            return;
+        }
+        while (next(it) != end() && bad(next(it))) {
+            erase(next(it));
+        }
+        while (it != begin() && bad(prev(it))) {
+            erase(prev(it));
+        }
     }
-    return eval(ptr);
-}
+
+    long long get(long long x) {
+        auto l = *lower_bound(x);
+        return l.m * x + l.c;
+    }
+};
 
 int main() {
     ios_base::sync_with_stdio(false);
@@ -62,9 +92,10 @@ int main() {
     }
     N = valid_rects.size();
     vector<long long> dp(N);
+    CHT hull;
     for (int i = 1; i < N; ++i) {
-        add_line(valid_rects[i].b, dp[i - 1]);
-        dp[i] = get_min(valid_rects[i].l);
+        hull.add(valid_rects[i].b, dp[i - 1]);
+        dp[i] = hull.get(valid_rects[i].l);
     }
     cout << dp.back() << "\n";
     return 0;
