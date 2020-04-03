@@ -1,22 +1,28 @@
-template <typename A>
-vector<int> manacher(A v, int st, int en, int parity) {
-    // In case of even parity, [-- i (i + 1) --]
-    // i denotes imaginary point b/w i and i + 1
-    int rev_parity = parity ^ 1;
-    vector<int> d(v.size(), -1);
-    for (int i = st, l = st, r = st - 1; i <= en; ++i) {
-        int ans = (i <= r - rev_parity) ? min(d[l + r - i - rev_parity], r - i + parity) : parity;
-        int curr_l = i - ans + 1;
-        int curr_r = i + ans - parity;
-        while (st <= curr_l - 1 && curr_r + 1 <= en && v[curr_l - 1] == v[curr_r + 1]) {
-            ++ans, --curr_l, ++curr_r;
+// Returns: [radius in pattern, (start, end) in actual string] for every element
+// Actual length of pattern is 2*N - 1 (A_0 * A_1 * ... * A_N)
+// Time complexity: O(N)
+template <typename T>
+vector<pair<int, pair<int, int>>> manacher(T &pattern) {
+    int n = pattern.size();
+    vector<pair<int, pair<int, int>>> radius(n);
+    int center = 0;
+    for (int i = 0; i < n; ++i) {
+        auto &rad = radius[i].first;
+        if (i <= center + radius[center].first) {
+            rad = min(radius[center - (i - center)].first, center + radius[center].first - i);
         }
-        d[i] = ans;
-        if (curr_l <= curr_r && curr_r > r) {
-            l = curr_l;
-            r = curr_r;
+        while (i - rad - 1 >= 0 && i + rad + 1 < n && pattern[i - rad - 1] == pattern[i + rad + 1]) {
+            ++rad;
+        }
+        if (i % 2 == 0) {
+            radius[i].second = {i / 2 - rad / 2, i / 2 + rad / 2};
+        } else {
+            radius[i].second = {i / 2 - (rad + 1) / 2 + 1, i / 2 + (rad + 1) / 2};
+        }
+        if (i + rad > center + radius[center].first) {
+            center = i;
         }
     }
-    return d;
+    return radius;
 }
 
