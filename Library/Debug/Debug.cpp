@@ -37,7 +37,7 @@ string to_string(bitset<N> v) {
 string to_string(vector<bool> v) {
     bool first = true;
     string res = "{";
-    for (int i = 0; i < v.size(); ++i) {
+    for (int i = 0; i < int(v.size()); ++i) {
         if (!first) {
             res += ", ";
         }
@@ -71,8 +71,4 @@ void debug_out(Head H, Tail... T) {
     debug_out(T...);
 }
 
-#ifdef LOCAL
 #define debug(...) cerr << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__)
-#else
-#define debug(...) 42
-#endif
