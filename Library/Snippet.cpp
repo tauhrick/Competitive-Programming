@@ -3,16 +3,17 @@
 using namespace std;
 
 #ifdef LOCAL
-#include "Library/Debug.cpp"
+#include "/home/chirag11032000/CP/Library/Debug.cpp"
 #else
 #define debug(...) 42
 #endif
 
 class Task {
  private:
- 
+  
+
   void Read() {
-    
+     
   }
  
   void Solve() {
@@ -27,8 +28,7 @@ class Task {
 };
  
 int main() {
-  ios_base::sync_with_stdio(false);
-  cin.tie(0);
+  cin.tie(nullptr)->sync_with_stdio(false);
   int tc;
   cin >> tc;
   for (int tt = 1; tt <= tc; ++tt) {
