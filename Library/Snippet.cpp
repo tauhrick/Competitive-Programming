@@ -1,11 +1,9 @@
+#ifndef LOCAL
 #include <bits/stdc++.h>
-
 using namespace std;
-
-#ifdef LOCAL
-#include "/home/chirag11032000/CP/Library/Debug.cpp"
-#else
 #define debug(...) 42
+#else
+#include "Debug.hpp"
 #endif
 
 class Task {
@@ -29,11 +27,7 @@ class Task {
  
 int main() {
   cin.tie(nullptr)->sync_with_stdio(false);
-  int tc;
-  cin >> tc;
-  for (int tt = 1; tt <= tc; ++tt) {
-    Task t;
-    t.Perform();
-  }
+  Task t;
+  t.Perform();
   return 0;
 }
