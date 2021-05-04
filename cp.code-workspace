@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "Codes"
+		},
+		{
+			"path": "Library"
+		}
+    ],
+    "settings": {
+        "C_Cpp.default.cppStandard": "gnu++17"
+    }
+}
