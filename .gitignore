@@ -8,12 +8,9 @@
 !*/
 
 # Ignore selected dirs
-codes/*
+Codes/*
 TC/*
 Hightail/*
 Books/
 
-.vscode
-.bin
-CP.code-workspace
 */a.out
