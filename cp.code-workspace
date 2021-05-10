@@ -9,5 +9,75 @@
     ],
     "settings": {
         "C_Cpp.default.cppStandard": "gnu++17"
+    },
+    "tasks": {
+        "version": "2.0.0",
+        "tasks": [
+            {
+                "type": "shell",
+                "label": "Regular build CP",
+                "command": "/usr/bin/g++",
+                "args": [
+                    "${file}",
+                    "-H",
+                    "-DLOCAL",
+                    "-Wall",
+                    "-Wextra",
+                    "-std=c++17",
+                    "-O2",
+                    "-Wshadow",
+                    "-Wformat=2",
+                    "-Wfloat-equal",
+                    "-Wconversion",
+                    "-Wlogical-op",
+                    "-Wshift-overflow=2",
+                    "-Wduplicated-cond",
+                    "-Wcast-qual",
+                    "-Wcast-align",
+                    "-Wno-misleading-indentation",
+                    "-D_GLIBCXX_DEBUG",
+                    "-D_GLIBCXX_DEBUG_PEDANTIC",
+                    "-D_FORTIFY_SOURCE=2",
+                    "-fsanitize=address",
+                    "-fsanitize=undefined",
+                    "-fno-sanitize-recover",
+                    "-fstack-protector",
+                    "-o",
+                    "${fileDirname}/a.out"
+                ],
+                "options": {
+                    "cwd": "${workspaceFolder}"
+                },
+                "problemMatcher": [
+                    "$gcc"
+                ],
+                "group": {
+                    "kind": "build",
+                    "isDefault": true
+                }
+            },
+            {
+                "type": "shell",
+                "label": "Debug build CP",
+                "command": "/usr/bin/g++",
+                "args": [
+                    "-g",
+                    "${file}",
+                    "-O2",
+                    "-o",
+                    "${fileDirname}/a.out"
+                ],
+                "options": {
+                    "cwd": "${workspaceFolder}"
+                },
+                "problemMatcher": [
+                    "$gcc"
+                ],
+                "group": {
+                    "kind": "test",
+                    "isDefault": true
+                }
+            },
+        ]
     }
 }
